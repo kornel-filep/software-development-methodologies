@@ -6,10 +6,9 @@ Course website for **Software Development Methodologies (2026)**, aimed at stude
 A static [Astro](https://astro.build) site deployed to GitHub Pages by GitHub Actions:
 https://kornel-filep.github.io/software-development-methodologies/
 
-- `reqs.txt` – source text of the semester team assignment requirements.
 - `src/content/pages/*.md|*.mdx` – **all page content, in Markdown.** Edit content here.
   Use `.mdx` only when a page needs a component such as `<Excalidraw />`.
-  - `index.md` is the home page (the `reqs.txt` content). Any other `name.md` is served at `/name/`
+  - `index.md` is the home page (the semester team assignment requirements). Any other `name.md` is served at `/name/`
     and is added to the header menu automatically.
   - Frontmatter: `title` (required), `description` (optional subtitle), `order` (menu order, lower first),
     `navLabel` (optional menu label). `index.md` also holds `footer`, the site-wide footer text.
@@ -65,6 +64,5 @@ Never edit `gh-pages` by hand; publishing `main` keeps the `preview/` folder int
 - Local preview: `npm install`, then `npm run dev`.
 - Check the build: `npm run build` (output goes to `dist/`).
 - Content changes only touch Markdown; never put content into `.astro` files.
-- If `reqs.txt` changes, update `src/content/pages/index.md` to match.
 - Style new Markdown elements (tables, quotes, etc.) via the `.prose` rules in `Layout.astro`.
 - The base path differs per branch, so always build internal links with `import.meta.env.BASE_URL`.
