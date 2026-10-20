@@ -7,7 +7,8 @@ A static [Astro](https://astro.build) site deployed to GitHub Pages by GitHub Ac
 https://kornel-filep.github.io/software-development-methodologies/
 
 - `reqs.txt` – source text of the semester team assignment requirements.
-- `src/content/pages/*.md` – **all page content, in Markdown.** Edit content here.
+- `src/content/pages/*.md|*.mdx` – **all page content, in Markdown.** Edit content here.
+  Use `.mdx` only when a page needs a component such as `<Excalidraw />`.
   - `index.md` is the home page (the `reqs.txt` content). Any other `name.md` is served at `/name/`
     and is added to the header menu automatically.
   - Frontmatter: `title` (required), `description` (optional subtitle), `order` (menu order, lower first),
@@ -15,8 +16,20 @@ https://kornel-filep.github.io/software-development-methodologies/
 - `src/content.config.ts` – content collection schema.
 - `src/pages/[...slug].astro` – generates one page per Markdown file.
 - `src/layouts/Layout.astro` – shared shell, menu and Markdown styles (`.prose`).
+- `src/components/Excalidraw.astro` + `ExcalidrawViewer.tsx` – renders an Excalidraw diagram as SVG.
+- `public/diagrams/*.excalidraw` – diagram sources (Excalidraw JSON).
 - `.github/workflows/deploy.yml` – builds and publishes every branch (see Deployment).
 - `scripts/publish-pages.sh` – writes a build into a folder of the `gh-pages` branch, or removes it.
+
+## Diagrams (Excalidraw)
+
+1. Create or edit the diagram on https://excalidraw.com (or in VS Code with the recommended
+   Excalidraw extension) and save it as `public/diagrams/<name>.excalidraw`.
+2. In an `.mdx` page, embed it with `<Excalidraw name="<name>" caption="..." />`; no import is needed,
+   the component is provided by `src/pages/[...slug].astro`.
+
+The diagram is rendered client-side to an SVG that follows the light/dark theme, and the caption links
+to the source file. Diagram text is content, so it is written in Hungarian.
 
 ## Deployment
 

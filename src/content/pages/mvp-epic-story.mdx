@@ -1,0 +1,188 @@
+---
+title: MVP, Epic, Story
+description: Útmutató a követelmények lebontásához, az MVP-től a taskokig
+order: 10
+navLabel: MVP → Epic → Story
+---
+
+Ez az útmutató lépésről lépésre bemutatja, hogyan jut el egy csapat az alkalmazásötlettől a feladattáblán
+elvégezhető feladatokig. A példák végig ugyanarra az alkalmazásra épülnek, így látszik, hogyan kapcsolódnak
+egymáshoz a szintek.
+
+## A teljes kép egy ábrán
+
+A követelmények egy fa szerkezetet alkotnak. Legfelül az **MVP** áll, ezt **Epicekre** bontjuk, minden Epicet
+**User Storykra**, a Storykat pedig **Taskokra**. A Storyhoz **acceptance criteria** is tartozik: ebből
+derül ki, mikor tekinthető késznek.
+
+<Excalidraw
+  name="mvp-breakdown"
+  caption="Példa: a Tanulócsoport-szervező MVP lebontása. A fájl letölthető, és megnyitható az excalidraw.com oldalon."
+/>
+
+| Szint | Mit ír le? | Mekkora? | Példa |
+| --- | --- | --- | --- |
+| MVP | Az alkalmazás legkisebb, már hasznos változatát | Az egész félév | Tanulócsoport-szervező |
+| Epic | Egy nagyobb funkcióterületet | Több sprint, több Story | Tanulócsoportok |
+| User Story | Egy felhasználói igényt, a felhasználó szemszögéből | Egy sprinten belül elkészül | Csoport létrehozása |
+| Task | Egy konkrét fejlesztői teendőt | Néhány óra, legfeljebb 1–2 nap | API: `POST /groups` végpont |
+
+## 1. lépés: az MVP meghatározása
+
+Az **MVP** (Minimum Viable Product) az alkalmazás legkisebb olyan változata, amely már valódi problémát old
+meg egy valódi felhasználónak. Nem prototípus és nem félkész termék. Kevés funkciója van, de azok működnek.
+
+Az MVP meghatározásához válaszoljátok meg ezeket a kérdéseket:
+
+1. **Ki a felhasználó?** Például: egyetemi hallgatók, akik csoportban készülnek a vizsgákra.
+2. **Milyen problémája van?** Például: a közös tanulás szervezése szétszórt Messenger-üzenetekben zajlik, és
+   senki sem tudja, ki mikor ér rá.
+3. **Mi a legkisebb megoldás, amely már segít?** Például: legyen egy hely, ahol létrehozható egy csoport,
+   meghívhatók a tagok, és kitűzhető egy alkalom, amelyre mindenki jelezheti a részvételét.
+
+Ezután írjátok le egy-két mondatban az MVP-t:
+
+> **Tanulócsoport-szervező:** egy webalkalmazás, amelyben a hallgatók tanulócsoportokat hozhatnak létre,
+> meghívhatják a csoporttársaikat, és közös tanulóalkalmakat szervezhetnek, amelyekre a tagok jelezhetik a
+> részvételüket.
+
+### Mi fér bele az MVP-be?
+
+Gyűjtsétek össze az összes ötletet, majd soroljátok őket a **MoSCoW** módszer szerint:
+
+- **Must have:** e nélkül nincs MVP (pl. csoport létrehozása, alkalom kitűzése).
+- **Should have:** fontos, de nélküle is használható az alkalmazás (pl. e-mail-értesítés az alkalom előtt).
+- **Could have:** jó lenne, ha marad rá idő (pl. közös jegyzetek feltöltése).
+- **Won't have (most):** tudatosan kihagyjuk (pl. videóhívás, mobilalkalmazás).
+
+Az MVP a **Must have** elemekből áll. A többi a backlogba kerül, és csak akkor kezdtek bele, ha a Must have
+elemek már elkészültek.
+
+## 2. lépés: Epicek kialakítása
+
+Az **Epic** egy nagyobb, összefüggő funkcióterület, amely több Storyból áll, és általában több sprinten át
+tart. Az Epiceket a felhasználó szemszögéből érdemes megfogalmazni, nem technikai rétegek szerint.
+
+Jó Epicek a példában:
+
+- **Epic 1: Felhasználói fiók** – regisztráció, bejelentkezés, kijelentkezés.
+- **Epic 2: Tanulócsoportok** – csoport létrehozása, csatlakozás, tagok kezelése.
+- **Epic 3: Tanulóalkalmak** – alkalom kitűzése, részvétel jelzése.
+
+Kerülendő Epicek: „Backend”, „Adatbázis”, „Frontend”. Ezek technikai rétegek, és egyik sem ad önmagában
+értéket a felhasználónak.
+
+### Így néz ki egy Epic
+
+> **Epic 2: Tanulócsoportok**
+>
+> **Cél:** a hallgatók csoportokba szerveződhessenek, és egy helyen lássák, kik tartoznak a csoportjukba.
+>
+> **Storyk:**
+> - Csoport létrehozása
+> - Csatlakozás meghívó linkkel
+> - Csoporttagok listája
+> - Kilépés a csoportból *(Should have)*
+>
+> **Akkor kész, ha:** egy hallgató létre tud hozni egy csoportot, meg tudja hívni a társait, és a tagok
+> látják egymást a csoport oldalán.
+
+## 3. lépés: User Storyk írása
+
+A **User Story** egy rövid leírás arról, hogy egy felhasználó mit szeretne elérni és miért. Nem technikai
+specifikáció, hanem egy igény, amelyről a csapat beszélget, és amelyet a sprint végére le tud szállítani.
+
+A szokásos sablon:
+
+> **[Szerepkör]ként** szeretnék **[valamit megtenni]**, hogy **[valamilyen értéket elérjek]**.
+
+Angolul: *As a [role], I want [goal], so that [benefit].*
+
+### Így néz ki egy Story
+
+> **Story: Csoport létrehozása** · Epic 2 · Must have · 3 story point
+>
+> Hallgatóként szeretnék tanulócsoportot létrehozni, hogy egy helyen szervezhessem a közös tanulást a
+> csoporttársaimmal.
+>
+> **Acceptance criteria:**
+> - A csoport neve kötelező, legfeljebb 50 karakter.
+> - A leírás megadása nem kötelező.
+> - A létrehozó automatikusan a csoport tagja és adminja lesz.
+> - Mentés után a csoport megjelenik a „Csoportjaim” listában.
+> - Üres névvel a mentés nem lehetséges, és az űrlap hibaüzenetet jelenít meg.
+
+Az acceptance criteria akkor jó, ha egyértelműen eldönthető, teljesül-e. Bonyolultabb esetben használhatjátok
+a **Given / When / Then** formát is:
+
+> **Given** be vagyok jelentkezve,<br />
+> **When** kitöltöm a csoport nevét, és a „Létrehozás” gombra kattintok,<br />
+> **Then** a csoport megjelenik a „Csoportjaim” listában, és én vagyok az adminja.
+
+### Mitől jó egy Story? (INVEST)
+
+- **Independent:** a többi Storytól függetlenül elkészíthető.
+- **Negotiable:** a részletek megbeszélhetők, nem kőbe vésett szerződés.
+- **Valuable:** a felhasználó számára értéket ad.
+- **Estimable:** a csapat meg tudja becsülni a méretét.
+- **Small:** belefér egy sprintbe.
+- **Testable:** az acceptance criteria alapján ellenőrizhető.
+
+Ha egy Story túl nagy, vágjátok szét. Például a „Csoportok kezelése” Storyból legyen külön „Csoport
+létrehozása”, „Csatlakozás meghívó linkkel” és „Csoporttagok listája”.
+
+## 4. lépés: Taskok
+
+A **Task** a Story elkészítéséhez szükséges konkrét fejlesztői teendő. A Taskokat a csapat a sprint
+tervezésekor írja meg, és mindegyiknek legyen felelőse a feladattáblán.
+
+A „Csoport létrehozása” Story Taskjai például:
+
+- Adatbázis: `groups` és `group_members` tábla létrehozása, migrációval.
+- API: `POST /groups` végpont validációval.
+- UI: „Új csoport” űrlap és hibaüzenetek.
+- Unit teszt a validációra, integrációs teszt a végpontra.
+- Code review és merge a `main` ágba.
+
+## 5. lépés: Definition of Done
+
+A **Definition of Done** (DoD) a csapat közös megállapodása arról, mikor tekinthető késznek bármelyik Story.
+Míg az acceptance criteria Storynként változik, a DoD minden Storyra ugyanaz.
+
+Példa DoD:
+
+- [x] Minden acceptance criteria teljesül.
+- [x] A kód egy feature ágon készült, és code review után került a `main` ágba.
+- [x] A CI-folyamat sikeresen lefut: build, lint és tesztek.
+- [x] Az új logikához unit teszt, a végponthoz integrációs teszt tartozik.
+- [x] A Story a feladattáblán a „Done” oszlopba került.
+
+## Hogyan áll össze az egész?
+
+1. Az **MVP** megmondja, mit szállítotok le a félév végére.
+2. Az **Epicek** felosztják az MVP-t nagyobb, áttekinthető területekre.
+3. A **User Storyk** kerülnek a backlogba. Sprintenként ezekből választotok, és ezeket mutatjátok be.
+4. A **Taskok** a feladattáblán mozognak (To Do → In Progress → Review → Done), és minden Tasknak van felelőse.
+5. Az **acceptance criteria** és a **Definition of Done** együtt dönti el, hogy egy Story tényleg kész-e.
+
+Ha egy Taskról nem tudjátok megmondani, melyik Storyhoz tartozik, vagy egy Storyról, hogy melyik Epichez,
+akkor valami kimaradt a lebontásból.
+
+## Gyakori hibák
+
+- **Túl nagy MVP.** Ha minden ötlet Must have, akkor nincs MVP. Inkább legyen kevesebb funkció, de az
+  működjön.
+- **Technikai Storyk.** A „Backend elkészítése” nem Story. Fogalmazzátok meg, mit kap belőle a felhasználó.
+- **Hiányzó acceptance criteria.** Nélküle nem lehet eldönteni, hogy a Story kész-e.
+- **Óriás Taskok.** Ha egy Task egy hétig tart, bontsátok kisebb Taskokra.
+- **Nincs felelős.** A táblán minden folyamatban lévő Tasknak legyen gazdája.
+
+## Ellenőrzőlista az első határidőre
+
+- [ ] Leírtátok egy-két mondatban az MVP-t.
+- [ ] Megvan a MoSCoW szerint rangsorolt funkciólista.
+- [ ] Az MVP 3–5 Epicre van bontva.
+- [ ] Minden Epichez tartozik legalább 2–3 User Story.
+- [ ] Legalább a következő sprint Storyjainak van acceptance criteriája.
+- [ ] Leírtátok a csapat Definition of Done-ját.
+- [ ] Mindez fent van a feladattáblán (pl. Trello vagy Jira).

@@ -1,0 +1,41 @@
+---
+import ExcalidrawViewer from './ExcalidrawViewer.tsx';
+
+interface Props {
+  // File name in public/diagrams, without the .excalidraw extension.
+  name: string;
+  caption?: string;
+}
+
+const { name, caption } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = `${base}/diagrams/${name}.excalidraw`;
+---
+<figure class="diagram">
+  <div class="diagram-canvas">
+    <ExcalidrawViewer client:only="react" url={url} />
+  </div>
+  {caption && (
+    <figcaption>
+      {caption} · <a href={url} download>{name}.excalidraw</a>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  figure.diagram {
+    margin: 1.5rem 0;
+  }
+  .diagram-canvas {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    padding: 0.5rem;
+    min-height: 200px;
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+</style>
