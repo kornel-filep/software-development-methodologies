@@ -1,37 +1,34 @@
 ---
 title: Szoftverfejlesztési módszertanok
-description: 2026-os félév · Féléves csapatfeladat
+description: Csapatfeladat
 order: 0
 navLabel: Főoldal
 footer: Szoftverfejlesztési módszertanok · 2026
 ---
 
-## Féléves csapatfeladat
+## Az oldal
+Ez az oldal infót tartalmaz mely segít a kurzus teljesítésében. Főképp magyar anyaggal lesz feltöltve, de helyenként lehet angol, vagy hunglish fogalmazás is.
 
-- Találjatok ki egy alkalmazást, és határozzátok meg a félév alatt elkészíthető alapverzióját (MVP). Legyen valódi célja és néhány érdemi funkciója; egy teljesen alap teendőlista nem elég.
+## Féléves csapatfeladat követelmények
+
+- Találjatok ki egy alkalmazást, és határozzátok meg a félév alatt elkészíthető MVPt (Minimum Viable Product). Legyen valódi célja és néhány érdemi funkciója; egy teljesen alap todo-list nem elég.
 - Használjatok egy fejlesztési módszertant, például Scrumot vagy Kanbant.
-- Bontsátok a követelményeket epicekre, majd user storykra és feladatokra. Írjátok le, mikor tekinthető egy feladat késznek.
-- Vezessétek a munkát egy feladattáblán, például Trellóban vagy Jirában. Legyen látható a felelős, az állapot és az előrehaladás.
-- Használjatok Gitet és közös kódtárat. Tudjátok bemutatni az ágak és az összeolvasztások kezelését.
-- Az alkalmazás mentsen adatokat adatbázisba.
-- Legyen automatizált build és kódellenőrzés (lint) egy CI-folyamatban.
+- Bontsátok a követelményeket epicekre, majd user storykra és feladatokra. Írjátok le, mikor tekinthető egy feladat késznek (Definition of Done).
+- Vezessétek a munkát egy boardon, például Trellóban vagy Jirában. Legyen látható az állapot és az előrehaladás.
+- Használjatok Gitet és egy remote repot, pl Github vagy Gitlab.
+- Az alkalmazásban legyen perzisztencia adatbázisba.
+- Legyen automatizált build és kódellenőrzés (lint, typecheck) egy CI-folyamatban (Continuous Integration), teszt futtatás a CI részeként és opcionálisan packaging.
 - Készítsetek unit- és integrációs teszteket. Tudjátok bemutatni a futtatásukat.
-- Vegyetek részt a végső bemutató előtti két ellenőrző alkalmon. Ezeken átbeszéljük az aktuális szintet és a jobb jegyhez szükséges feladatokat.
-- A félév végére készítsetek működő demót és PowerPoint-bemutatót. Minden csapattag szólaljon meg, és tudjon válaszolni a projekttel kapcsolatos kérdésekre.
-
-## Első határidő
-
-Körülbelül két hét alatt válasszátok ki a témát és a tervezett funkciókat. Az október 12. utáni következő megbeszélésre legyen konkrét elképzelésetek és rövid funkciólistátok.
+- A félév végére készítsetek működő demót és egy bemutatót (pl powerpoint prezentáció). Minden csapattag szólaljon meg, és tudjon válaszolni a projekttel kapcsolatos kérdésekre.
 
 ## Értékelés
 
-Az értékelés fő szempontja a fejlesztési folyamat: hogyan kezelitek a követelményeket, a feladatokat, a verziókat, a buildet és a teszteket.
+Az értékelés fő szempontja a fejlesztési folyamat: hogyan kezelitek a követelményeket, a feladatokat, a verziózást, a buildet és a teszteket, CI/CD, hogyan használtok AI-t.
 
-## Választható lehetőségek
+## Fontos tudni
 
 - A technológiát és az alkalmazás típusát ti választjátok. Webalkalmazás, mobilalkalmazás vagy játék is lehet.
-- Az alkalmazás online közzététele és az automatizált szállítás opcionális, pluszpontot érhet.
-- Docker használata opcionális.
-- AI-eszközök használata megengedett és kifejezetten ösztönzött. Kérdésre mondjátok el, mire és hogyan használtátok őket.
+- Az alkalmazás online közzététele és az automatizált szállítás (CD) opcionális, pluszpontot ér.
+- Docker használata opcionális, pluszpontot ér ha a végén be van csomagolva az alkalmazás egy containerbe.
+- AI-eszközök használata megengedett. Kérdésre mondjátok el, mire és hogyan használtátok őket.
 - A kapcsolattartás történhet Discordon, Teamsen, e-mailben vagy más egyeztetett felületen.
-- Igény esetén tartunk rövid gyakorlati bemutatót az epicek és user storyk készítéséről.
