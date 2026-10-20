@@ -14,7 +14,8 @@ https://kornel-filep.github.io/software-development-methodologies/
     `navLabel` (optional menu label). `index.md` also holds `footer`, the site-wide footer text.
 - `src/content.config.ts` – content collection schema.
 - `src/pages/[...slug].astro` – generates one page per Markdown file.
-- `src/layouts/Layout.astro` – shared shell, left sidebar menu (collapses to the top on narrow screens)
+- `src/layouts/Layout.astro` – shared shell, left sidebar menu (a collapsed rail that expands on hover/focus;
+  a top bar on narrow or touch screens)
   and Markdown styles (`.prose`).
 - `src/components/Excalidraw.astro` + `ExcalidrawViewer.tsx` – renders an Excalidraw diagram as SVG,
   with zoom buttons and a fullscreen overlay.
