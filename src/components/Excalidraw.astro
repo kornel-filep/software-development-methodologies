@@ -1,5 +1,6 @@
 ---
 import ExcalidrawViewer from './ExcalidrawViewer.tsx';
+import uiText from '../content/ui-text.json';
 
 interface Props {
   // File name in public/diagrams, without the .excalidraw extension.
@@ -12,8 +13,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = `${base}/diagrams/${name}.excalidraw`;
 ---
 <figure class="diagram">
-  <div class="diagram-canvas">
-    <ExcalidrawViewer client:only="react" url={url} />
+  <div class="diagram-frame">
+    <ExcalidrawViewer client:only="react" url={url} labels={uiText.diagram} />
   </div>
   {caption && (
     <figcaption>
@@ -22,18 +23,75 @@ const url = `${base}/diagrams/${name}.excalidraw`;
   )}
 </figure>
 
-<style>
+<style is:global>
   figure.diagram {
     margin: 1.5rem 0;
   }
-  .diagram-canvas {
+  .diagram-frame {
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--card);
-    padding: 0.5rem;
     min-height: 200px;
+    overflow: hidden;
   }
-  figcaption {
+  .diagram-viewer {
+    position: relative;
+  }
+  .diagram-viewer.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .diagram-toolbar {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 1;
+    display: flex;
+    gap: 0.25rem;
+  }
+  .diagram-toolbar button {
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .diagram-toolbar button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .diagram-toolbar button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .diagram-scroll {
+    overflow: auto;
+    padding: 3rem 0.5rem 0.5rem;
+  }
+  .is-fullscreen .diagram-scroll {
+    flex: 1;
+    display: flex;
+    align-items: safe center;
+  }
+  .diagram-svg {
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+  .diagram-svg svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figure.diagram figcaption {
     color: var(--muted);
     font-size: 0.9rem;
     margin-top: 0.5rem;

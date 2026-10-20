@@ -15,8 +15,12 @@ https://kornel-filep.github.io/software-development-methodologies/
     `navLabel` (optional menu label). `index.md` also holds `footer`, the site-wide footer text.
 - `src/content.config.ts` – content collection schema.
 - `src/pages/[...slug].astro` – generates one page per Markdown file.
-- `src/layouts/Layout.astro` – shared shell, menu and Markdown styles (`.prose`).
-- `src/components/Excalidraw.astro` + `ExcalidrawViewer.tsx` – renders an Excalidraw diagram as SVG.
+- `src/layouts/Layout.astro` – shared shell, left sidebar menu (collapses to the top on narrow screens)
+  and Markdown styles (`.prose`).
+- `src/components/Excalidraw.astro` + `ExcalidrawViewer.tsx` – renders an Excalidraw diagram as SVG,
+  with zoom buttons and a fullscreen overlay.
+- `src/content/ui-text.json` – Hungarian UI strings used by components (button labels, aria labels).
+  Any new user-facing text in components goes here, never inline in code.
 - `public/diagrams/*.excalidraw` – diagram sources (Excalidraw JSON).
 - `.github/workflows/deploy.yml` – builds and publishes every branch (see Deployment).
 - `scripts/publish-pages.sh` – writes a build into a folder of the `gh-pages` branch, or removes it.
@@ -51,7 +55,8 @@ Never edit `gh-pages` by hand; publishing `main` keeps the `preview/` folder int
    (e.g. CI/CD, build, lint, MVP, epic, user story, Scrum, Kanban, Git, merge, Docker).
 2. **Code is English only.** All Astro/TypeScript/CSS code uses English words only: file and folder names,
    collection names, variables, functions, props, frontmatter keys, CSS classes and comments.
-   Do not hard-code Hungarian UI text in code; put it in Markdown content (body or frontmatter) instead.
+   Do not hard-code Hungarian UI text in code; put it in Markdown content (body or frontmatter) or in
+   `src/content/ui-text.json` instead.
 3. Repository docs for maintainers (this file), commit messages and workflow files are in English.
    `README.md` is in Hungarian because it is the editing guide for the course owner.
 

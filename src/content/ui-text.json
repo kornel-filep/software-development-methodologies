@@ -1,0 +1,12 @@
+{
+  "diagram": {
+    "zoomIn": "Nagyítás",
+    "zoomOut": "Kicsinyítés",
+    "zoomReset": "Eredeti méret",
+    "fullscreen": "Teljes képernyő",
+    "exitFullscreen": "Kilépés a teljes képernyőből"
+  },
+  "nav": {
+    "label": "Oldalak"
+  }
+}
