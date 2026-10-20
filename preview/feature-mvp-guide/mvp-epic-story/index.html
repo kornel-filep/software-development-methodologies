@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="hu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Útmutató a követelmények lebontásához, az MVP-től a taskokig"><title>MVP, Epic, Story · Szoftverfejlesztési módszertanok</title><style>:root{--bg:#fafaf8;--fg:#1d1d1f;--muted:#5f5f66;--accent:#2b59c3;--card:#fff;--border:#e2e2e6;--code-bg:#f0f0f3}@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececf0;--muted:#a0a0aa;--accent:#7ea2ff;--card:#1d1d21;--border:#2e2e34;--code-bg:#26262c}}*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.65}header.site{border-bottom:1px solid var(--border);background:var(--card)}header.site .inner,main,footer{max-width:760px;margin:0 auto;padding-left:1rem;padding-right:1rem}header.site .inner{flex-wrap:wrap;align-items:baseline;gap:.5rem 1.25rem;padding-top:.9rem;padding-bottom:.9rem;display:flex}header.site .brand{color:var(--fg);margin-right:auto;font-weight:650;text-decoration:none}header.site nav{flex-wrap:wrap;gap:.25rem 1rem;display:flex}header.site nav a{color:var(--muted);text-decoration:none}header.site nav a[aria-current=page]{color:var(--accent);font-weight:600}main{padding-top:2.5rem;padding-bottom:3rem}h1{margin:0 0 .4rem;font-size:2rem;line-height:1.2}p.lead{color:var(--muted);margin:0 0 1.5rem}.prose h2{border-bottom:1px solid var(--border);margin:2.5rem 0 .75rem;padding-bottom:.3rem;font-size:1.35rem}.prose h3{margin:1.75rem 0 .5rem;font-size:1.1rem}.prose p,.prose ul,.prose ol,.prose blockquote,.prose pre,.prose table{margin:0 0 1rem}.prose ul,.prose ol{padding-left:1.4rem}.prose li{margin:.4rem 0}.prose li::marker{color:var(--accent)}.prose li.task-list-item{margin-left:-1.4rem;list-style:none}.prose li.task-list-item input{accent-color:var(--accent);margin-right:.5rem}.prose a{color:var(--accent)}.prose strong{font-weight:650}.prose blockquote{border-left:4px solid var(--accent);background:var(--card);color:var(--muted);border-radius:0 8px 8px 0;padding:.6rem 1rem}.prose blockquote p:last-child{margin-bottom:0}.prose code{background:var(--code-bg);border-radius:4px;padding:.1em .35em;font-family:ui-monospace,SF Mono,Menlo,monospace;font-size:.9em}.prose pre{border-radius:8px;padding:1rem;overflow-x:auto}.prose pre code{background:0 0;padding:0}.prose table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}.prose th,.prose td{border:1px solid var(--border);text-align:left;padding:.45rem .7rem}.prose th{background:var(--card)}.prose img{border-radius:8px;max-width:100%;height:auto}.prose hr{border:0;border-top:1px solid var(--border);margin:2rem 0}footer{color:var(--muted);padding-bottom:2rem;font-size:.9rem}figure[data-astro-cid-yixvc7ox].diagram{margin:1.5rem 0}.diagram-canvas[data-astro-cid-yixvc7ox]{border:1px solid var(--border);background:var(--card);border-radius:10px;min-height:200px;padding:.5rem}figcaption[data-astro-cid-yixvc7ox]{color:var(--muted);margin-top:.5rem;font-size:.9rem}
+</style></head><body><header class="site"><div class="inner"><a class="brand" href="/software-development-methodologies/preview/feature-mvp-guide/">Szoftverfejlesztési módszertanok</a><nav><a href="/software-development-methodologies/preview/feature-mvp-guide/">Főoldal</a><a href="/software-development-methodologies/preview/feature-mvp-guide/mvp-epic-story/" aria-current="page">MVP → Epic → Story</a></nav></div></header><main><h1>MVP, Epic, Story</h1><p class="lead">Útmutató a követelmények lebontásához, az MVP-től a taskokig</p><article class="prose"><p>Ez az útmutató lépésről lépésre bemutatja, hogyan jut el egy csapat az alkalmazásötlettől a feladattáblán
+elvégezhető feladatokig. A példák végig ugyanarra az alkalmazásra épülnek, így látszik, hogyan kapcsolódnak
+egymáshoz a szintek.</p>
+<h2 id="a-teljes-kép-egy-ábrán">A teljes kép egy ábrán</h2>
+<p>A követelmények egy fa szerkezetet alkotnak. Legfelül az <strong>MVP</strong> áll, ezt <strong>Epicekre</strong> bontjuk, minden Epicet
+<strong>User Storykra</strong>, a Storykat pedig <strong>Taskokra</strong>. A Storyhoz <strong>acceptance criteria</strong> is tartozik: ebből
+derül ki, mikor tekinthető késznek.</p>
+<figure class="diagram" data-astro-cid-yixvc7ox><div class="diagram-canvas" data-astro-cid-yixvc7ox><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(function(){let e=async e=>{await(await e())()};(self.Astro||(self.Astro={})).only=e,window.dispatchEvent(new Event(`astro:only`))})();</script><script>(function(){function e(t){"@babel/helpers - typeof";return e=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},e(t)}function t(t,n){if(e(t)!=`object`||!t)return t;var r=t[Symbol.toPrimitive];if(r!==void 0){var i=r.call(t,n||`default`);if(e(i)!=`object`)return i;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(n===`string`?String:Number)(t)}function n(n){var r=t(n,`string`);return e(r)==`symbol`?r:r+``}function r(e,t,r){return(t=n(t))in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}let i=/* @__PURE__ */ new Set([`__proto__`,`constructor`,`prototype`]);{let e={0:e=>a(e),1:e=>n(e),2:e=>new RegExp(e),3:e=>new Date(e),4:e=>new Map(n(e)),5:e=>new Set(n(e)),6:e=>BigInt(e),7:e=>new URL(e),8:e=>new Uint8Array(e),9:e=>new Uint16Array(e),10:e=>new Uint32Array(e),11:e=>1/0*e},t=t=>{let[n,r]=t;return n in e?e[n](r):void 0},n=e=>e.map(t),a=e=>typeof e!=`object`||!e?e:Object.fromEntries(Object.entries(e).map(([e,n])=>[e,t(n)]));class o extends HTMLElement{constructor(...e){super(...e),r(this,`Component`,void 0),r(this,`hydrator`,void 0),r(this,`hydrate`,async()=>{var e;if(!this.hydrator||!this.isConnected)return;let t=(e=this.parentElement)==null?void 0:e.closest(`astro-island[ssr]`);if(t){t.addEventListener(`astro:hydrate`,this.hydrate,{once:!0});return}let n=this.querySelectorAll(`astro-slot`),r={},i=this.querySelectorAll(`template[data-astro-template]`);for(let e of i){let t=e.closest(this.tagName);t!=null&&t.isSameNode(this)&&(r[e.getAttribute(`data-astro-template`)||`default`]=e.innerHTML,e.remove())}for(let e of n){let t=e.closest(this.tagName);t!=null&&t.isSameNode(this)&&(r[e.getAttribute(`name`)||`default`]=e.innerHTML)}let o;try{o=this.hasAttribute(`props`)?a(JSON.parse(this.getAttribute(`props`))):{}}catch(e){let t=this.getAttribute(`component-url`)||`<unknown>`,n=this.getAttribute(`component-export`);throw n&&(t+=` (export ${n})`),console.error(`[hydrate] Error parsing props for component ${t}`,this.getAttribute(`props`),e),e}await this.hydrator(this)(this.Component,o,r,{client:this.getAttribute(`client`)}),this.removeAttribute(`ssr`),this.dispatchEvent(new CustomEvent(`astro:hydrate`))}),r(this,`unmount`,()=>{this.isConnected||this.dispatchEvent(new CustomEvent(`astro:unmount`))})}disconnectedCallback(){document.removeEventListener(`astro:after-swap`,this.unmount),document.addEventListener(`astro:after-swap`,this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute(`await-children`)||document.readyState===`interactive`||document.readyState===`complete`)this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener(`DOMContentLoaded`,e),t.disconnect(),this.childrenConnectedCallback()},t=new MutationObserver(()=>{var t;((t=this.lastChild)==null?void 0:t.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue===`astro:end`&&(this.lastChild.remove(),e())});t.observe(this,{childList:!0}),document.addEventListener(`DOMContentLoaded`,e)}}async childrenConnectedCallback(){let e=this.getAttribute(`before-hydration-url`);e&&await import(e),this.start()}getRetryImportUrl(e){let t=new URL(e,document.baseURI);return t.searchParams.set(`astro-retry`,Date.now().toString()),t.toString()}async importWithRetry(e){try{return await import(e)}catch(t){return await new Promise(e=>setTimeout(e,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let t=this.getAttribute(`component-url`),n=new CustomEvent(`astro:hydration-error`,{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:t}});this.dispatchEvent(n)&&console.error(`[astro-island] Error hydrating ${t}`,e)}async start(){let e=JSON.parse(this.getAttribute(`opts`)),t=this.getAttribute(`client`);if(Astro[t]===void 0)window.addEventListener(`astro:${t}`,()=>this.start(),{once:!0});else try{await Astro[t](async()=>{let e=this.getAttribute(`renderer-url`);try{let[t,{default:n}]=await Promise.all([this.importWithRetry(this.getAttribute(`component-url`)),e?this.importWithRetry(e):Promise.resolve({default:()=>()=>{}})]),r=this.getAttribute(`component-export`)||`default`;if(r.includes(`.`)){this.Component=t;for(let e of r.split(`.`)){if(i.has(e)||!this.Component||typeof this.Component!=`object`&&typeof this.Component!=`function`||!Object.hasOwn(this.Component,e))throw Error(`Invalid component export path: ${r}`);this.Component=this.Component[e]}}else{if(i.has(r))throw Error(`Invalid component export path: ${r}`);this.Component=t[r]}return this.hydrator=n,this.hydrate}catch(e){return this.handleHydrationError(e),()=>{}}},e,this)}catch(e){this.handleHydrationError(e)}}attributeChangedCallback(){this.hydrate()}}r(o,`observedAttributes`,[`props`]),customElements.get(`astro-island`)||customElements.define(`astro-island`,o)}})();</script><astro-island uid="wTLOF" component-url="/software-development-methodologies/preview/feature-mvp-guide/_astro/ExcalidrawViewer.BodbKw6r.js" component-export="default" renderer-url="/software-development-methodologies/preview/feature-mvp-guide/_astro/client.DQ4C28SL.js" props="{&quot;url&quot;:[0,&quot;/software-development-methodologies/preview/feature-mvp-guide/diagrams/mvp-breakdown.excalidraw&quot;],&quot;data-astro-cid-yixvc7ox&quot;:[0,true]}" ssr client="only" opts="{&quot;name&quot;:&quot;ExcalidrawViewer&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island></div><figcaption data-astro-cid-yixvc7ox>Példa: a Tanulócsoport-szervező MVP lebontása. A fájl letölthető, és megnyitható az excalidraw.com oldalon. · <a href="/software-development-methodologies/preview/feature-mvp-guide/diagrams/mvp-breakdown.excalidraw" download data-astro-cid-yixvc7ox>mvp-breakdown.excalidraw</a></figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Szint</th>
+<th>Mit ír le?</th>
+<th>Mekkora?</th>
+<th>Példa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MVP</td>
+<td>Az alkalmazás legkisebb, már hasznos változatát</td>
+<td>Az egész félév</td>
+<td>Tanulócsoport-szervező</td>
+</tr>
+<tr>
+<td>Epic</td>
+<td>Egy nagyobb funkcióterületet</td>
+<td>Több sprint, több Story</td>
+<td>Tanulócsoportok</td>
+</tr>
+<tr>
+<td>User Story</td>
+<td>Egy felhasználói igényt, a felhasználó szemszögéből</td>
+<td>Egy sprinten belül elkészül</td>
+<td>Csoport létrehozása</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>Egy konkrét fejlesztői teendőt</td>
+<td>Néhány óra, legfeljebb 1–2 nap</td>
+<td>API: <code>POST /groups</code> végpont</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-lépés-az-mvp-meghatározása">1. lépés: az MVP meghatározása</h2>
+<p>Az <strong>MVP</strong> (Minimum Viable Product) az alkalmazás legkisebb olyan változata, amely már valódi problémát old
+meg egy valódi felhasználónak. Nem prototípus és nem félkész termék. Kevés funkciója van, de azok működnek.</p>
+<p>Az MVP meghatározásához válaszoljátok meg ezeket a kérdéseket:</p>
+<ol>
+<li><strong>Ki a felhasználó?</strong> Például: egyetemi hallgatók, akik csoportban készülnek a vizsgákra.</li>
+<li><strong>Milyen problémája van?</strong> Például: a közös tanulás szervezése szétszórt Messenger-üzenetekben zajlik, és
+senki sem tudja, ki mikor ér rá.</li>
+<li><strong>Mi a legkisebb megoldás, amely már segít?</strong> Például: legyen egy hely, ahol létrehozható egy csoport,
+meghívhatók a tagok, és kitűzhető egy alkalom, amelyre mindenki jelezheti a részvételét.</li>
+</ol>
+<p>Ezután írjátok le egy-két mondatban az MVP-t:</p>
+<blockquote>
+<p><strong>Tanulócsoport-szervező:</strong> egy webalkalmazás, amelyben a hallgatók tanulócsoportokat hozhatnak létre,
+meghívhatják a csoporttársaikat, és közös tanulóalkalmakat szervezhetnek, amelyekre a tagok jelezhetik a
+részvételüket.</p>
+</blockquote>
+<h3 id="mi-fér-bele-az-mvp-be">Mi fér bele az MVP-be?</h3>
+<p>Gyűjtsétek össze az összes ötletet, majd soroljátok őket a <strong>MoSCoW</strong> módszer szerint:</p>
+<ul>
+<li><strong>Must have:</strong> e nélkül nincs MVP (pl. csoport létrehozása, alkalom kitűzése).</li>
+<li><strong>Should have:</strong> fontos, de nélküle is használható az alkalmazás (pl. e-mail-értesítés az alkalom előtt).</li>
+<li><strong>Could have:</strong> jó lenne, ha marad rá idő (pl. közös jegyzetek feltöltése).</li>
+<li><strong>Won’t have (most):</strong> tudatosan kihagyjuk (pl. videóhívás, mobilalkalmazás).</li>
+</ul>
+<p>Az MVP a <strong>Must have</strong> elemekből áll. A többi a backlogba kerül, és csak akkor kezdtek bele, ha a Must have
+elemek már elkészültek.</p>
+<h2 id="2-lépés-epicek-kialakítása">2. lépés: Epicek kialakítása</h2>
+<p>Az <strong>Epic</strong> egy nagyobb, összefüggő funkcióterület, amely több Storyból áll, és általában több sprinten át
+tart. Az Epiceket a felhasználó szemszögéből érdemes megfogalmazni, nem technikai rétegek szerint.</p>
+<p>Jó Epicek a példában:</p>
+<ul>
+<li><strong>Epic 1: Felhasználói fiók</strong> – regisztráció, bejelentkezés, kijelentkezés.</li>
+<li><strong>Epic 2: Tanulócsoportok</strong> – csoport létrehozása, csatlakozás, tagok kezelése.</li>
+<li><strong>Epic 3: Tanulóalkalmak</strong> – alkalom kitűzése, részvétel jelzése.</li>
+</ul>
+<p>Kerülendő Epicek: „Backend”, „Adatbázis”, „Frontend”. Ezek technikai rétegek, és egyik sem ad önmagában
+értéket a felhasználónak.</p>
+<h3 id="így-néz-ki-egy-epic">Így néz ki egy Epic</h3>
+<blockquote>
+<p><strong>Epic 2: Tanulócsoportok</strong></p>
+<p><strong>Cél:</strong> a hallgatók csoportokba szerveződhessenek, és egy helyen lássák, kik tartoznak a csoportjukba.</p>
+<p><strong>Storyk:</strong></p>
+<ul>
+<li>Csoport létrehozása</li>
+<li>Csatlakozás meghívó linkkel</li>
+<li>Csoporttagok listája</li>
+<li>Kilépés a csoportból <em>(Should have)</em></li>
+</ul>
+<p><strong>Akkor kész, ha:</strong> egy hallgató létre tud hozni egy csoportot, meg tudja hívni a társait, és a tagok
+látják egymást a csoport oldalán.</p>
+</blockquote>
+<h2 id="3-lépés-user-storyk-írása">3. lépés: User Storyk írása</h2>
+<p>A <strong>User Story</strong> egy rövid leírás arról, hogy egy felhasználó mit szeretne elérni és miért. Nem technikai
+specifikáció, hanem egy igény, amelyről a csapat beszélget, és amelyet a sprint végére le tud szállítani.</p>
+<p>A szokásos sablon:</p>
+<blockquote>
+<p><strong>[Szerepkör]ként</strong> szeretnék <strong>[valamit megtenni]</strong>, hogy <strong>[valamilyen értéket elérjek]</strong>.</p>
+</blockquote>
+<p>Angolul: <em>As a [role], I want [goal], so that [benefit].</em></p>
+<h3 id="így-néz-ki-egy-story">Így néz ki egy Story</h3>
+<blockquote>
+<p><strong>Story: Csoport létrehozása</strong> · Epic 2 · Must have · 3 story point</p>
+<p>Hallgatóként szeretnék tanulócsoportot létrehozni, hogy egy helyen szervezhessem a közös tanulást a
+csoporttársaimmal.</p>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>A csoport neve kötelező, legfeljebb 50 karakter.</li>
+<li>A leírás megadása nem kötelező.</li>
+<li>A létrehozó automatikusan a csoport tagja és adminja lesz.</li>
+<li>Mentés után a csoport megjelenik a „Csoportjaim” listában.</li>
+<li>Üres névvel a mentés nem lehetséges, és az űrlap hibaüzenetet jelenít meg.</li>
+</ul>
+</blockquote>
+<p>Az acceptance criteria akkor jó, ha egyértelműen eldönthető, teljesül-e. Bonyolultabb esetben használhatjátok
+a <strong>Given / When / Then</strong> formát is:</p>
+<blockquote>
+<p><strong>Given</strong> be vagyok jelentkezve,<br/>
+<strong>When</strong> kitöltöm a csoport nevét, és a „Létrehozás” gombra kattintok,<br/>
+<strong>Then</strong> a csoport megjelenik a „Csoportjaim” listában, és én vagyok az adminja.</p>
+</blockquote>
+<h3 id="mitől-jó-egy-story-invest">Mitől jó egy Story? (INVEST)</h3>
+<ul>
+<li><strong>Independent:</strong> a többi Storytól függetlenül elkészíthető.</li>
+<li><strong>Negotiable:</strong> a részletek megbeszélhetők, nem kőbe vésett szerződés.</li>
+<li><strong>Valuable:</strong> a felhasználó számára értéket ad.</li>
+<li><strong>Estimable:</strong> a csapat meg tudja becsülni a méretét.</li>
+<li><strong>Small:</strong> belefér egy sprintbe.</li>
+<li><strong>Testable:</strong> az acceptance criteria alapján ellenőrizhető.</li>
+</ul>
+<p>Ha egy Story túl nagy, vágjátok szét. Például a „Csoportok kezelése” Storyból legyen külön „Csoport
+létrehozása”, „Csatlakozás meghívó linkkel” és „Csoporttagok listája”.</p>
+<h2 id="4-lépés-taskok">4. lépés: Taskok</h2>
+<p>A <strong>Task</strong> a Story elkészítéséhez szükséges konkrét fejlesztői teendő. A Taskokat a csapat a sprint
+tervezésekor írja meg, és mindegyiknek legyen felelőse a feladattáblán.</p>
+<p>A „Csoport létrehozása” Story Taskjai például:</p>
+<ul>
+<li>Adatbázis: <code>groups</code> és <code>group_members</code> tábla létrehozása, migrációval.</li>
+<li>API: <code>POST /groups</code> végpont validációval.</li>
+<li>UI: „Új csoport” űrlap és hibaüzenetek.</li>
+<li>Unit teszt a validációra, integrációs teszt a végpontra.</li>
+<li>Code review és merge a <code>main</code> ágba.</li>
+</ul>
+<h2 id="5-lépés-definition-of-done">5. lépés: Definition of Done</h2>
+<p>A <strong>Definition of Done</strong> (DoD) a csapat közös megállapodása arról, mikor tekinthető késznek bármelyik Story.
+Míg az acceptance criteria Storynként változik, a DoD minden Storyra ugyanaz.</p>
+<p>Példa DoD:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" checked disabled/> Minden acceptance criteria teljesül.</li>
+<li class="task-list-item"><input type="checkbox" checked disabled/> A kód egy feature ágon készült, és code review után került a <code>main</code> ágba.</li>
+<li class="task-list-item"><input type="checkbox" checked disabled/> A CI-folyamat sikeresen lefut: build, lint és tesztek.</li>
+<li class="task-list-item"><input type="checkbox" checked disabled/> Az új logikához unit teszt, a végponthoz integrációs teszt tartozik.</li>
+<li class="task-list-item"><input type="checkbox" checked disabled/> A Story a feladattáblán a „Done” oszlopba került.</li>
+</ul>
+<h2 id="hogyan-áll-össze-az-egész">Hogyan áll össze az egész?</h2>
+<ol>
+<li>Az <strong>MVP</strong> megmondja, mit szállítotok le a félév végére.</li>
+<li>Az <strong>Epicek</strong> felosztják az MVP-t nagyobb, áttekinthető területekre.</li>
+<li>A <strong>User Storyk</strong> kerülnek a backlogba. Sprintenként ezekből választotok, és ezeket mutatjátok be.</li>
+<li>A <strong>Taskok</strong> a feladattáblán mozognak (To Do → In Progress → Review → Done), és minden Tasknak van felelőse.</li>
+<li>Az <strong>acceptance criteria</strong> és a <strong>Definition of Done</strong> együtt dönti el, hogy egy Story tényleg kész-e.</li>
+</ol>
+<p>Ha egy Taskról nem tudjátok megmondani, melyik Storyhoz tartozik, vagy egy Storyról, hogy melyik Epichez,
+akkor valami kimaradt a lebontásból.</p>
+<h2 id="gyakori-hibák">Gyakori hibák</h2>
+<ul>
+<li><strong>Túl nagy MVP.</strong> Ha minden ötlet Must have, akkor nincs MVP. Inkább legyen kevesebb funkció, de az
+működjön.</li>
+<li><strong>Technikai Storyk.</strong> A „Backend elkészítése” nem Story. Fogalmazzátok meg, mit kap belőle a felhasználó.</li>
+<li><strong>Hiányzó acceptance criteria.</strong> Nélküle nem lehet eldönteni, hogy a Story kész-e.</li>
+<li><strong>Óriás Taskok.</strong> Ha egy Task egy hétig tart, bontsátok kisebb Taskokra.</li>
+<li><strong>Nincs felelős.</strong> A táblán minden folyamatban lévő Tasknak legyen gazdája.</li>
+</ul>
+<h2 id="ellenőrzőlista-az-első-határidőre">Ellenőrzőlista az első határidőre</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Leírtátok egy-két mondatban az MVP-t.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Megvan a MoSCoW szerint rangsorolt funkciólista.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Az MVP 3–5 Epicre van bontva.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Minden Epichez tartozik legalább 2–3 User Story.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Legalább a következő sprint Storyjainak van acceptance criteriája.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Leírtátok a csapat Definition of Done-ját.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Mindez fent van a feladattáblán (pl. Trello vagy Jira).</li>
+</ul></article></main><footer>Szoftverfejlesztési módszertanok · 2026</footer></body></html>
