@@ -15,7 +15,20 @@ https://kornel-filep.github.io/software-development-methodologies/
 - `src/content.config.ts` – content collection schema.
 - `src/pages/[...slug].astro` – generates one page per Markdown file.
 - `src/layouts/Layout.astro` – shared shell, menu and Markdown styles (`.prose`).
-- `.github/workflows/deploy.yml` – build and deploy on push to `main`.
+- `.github/workflows/deploy.yml` – builds and publishes every branch (see Deployment).
+- `scripts/publish-pages.sh` – writes a build into a folder of the `gh-pages` branch, or removes it.
+
+## Deployment
+
+GitHub Pages serves the `gh-pages` branch (source: branch, not Actions). The workflow publishes:
+
+- `main` → site root: https://kornel-filep.github.io/software-development-methodologies/
+- any other branch → `/preview/<slug>/`, where `<slug>` is the branch name lowercased with
+  non `[a-z0-9._-]` characters replaced by `-` (e.g. `feature/mvp-guide` → `preview/feature-mvp-guide`).
+- deleting a branch removes its preview folder.
+
+The base path is passed to Astro via the `BASE_PATH` env var (`astro.config.mjs`).
+Never edit `gh-pages` by hand; publishing `main` keeps the `preview/` folder intact.
 
 ## Language rules (mandatory)
 
@@ -36,5 +49,4 @@ https://kornel-filep.github.io/software-development-methodologies/
 - Content changes only touch Markdown; never put content into `.astro` files.
 - If `reqs.txt` changes, update `src/content/pages/index.md` to match.
 - Style new Markdown elements (tables, quotes, etc.) via the `.prose` rules in `Layout.astro`.
-- The site runs under the `/software-development-methodologies` base path (`base` in `astro.config.mjs`),
-  so build internal links with `import.meta.env.BASE_URL`.
+- The base path differs per branch, so always build internal links with `import.meta.env.BASE_URL`.

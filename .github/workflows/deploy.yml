@@ -1,32 +1,71 @@
 name: Deploy to GitHub Pages
 
+# main is published at the site root.
+# Every other branch is published at /preview/<branch>/ and removed when the branch is deleted.
+
 on:
   push:
-    branches: [main]
+    branches-ignore: [gh-pages]
+  delete:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: pages-publish
   cancel-in-progress: false
 
+env:
+  SITE_BASE: /software-development-methodologies
+
 jobs:
-  build:
+  deploy:
+    if: github.event_name != 'delete'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v4
 
-  deploy:
-    needs: build
+      - name: Resolve target folder
+        id: target
+        run: |
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            echo "dir=." >> "$GITHUB_OUTPUT"
+            echo "base=$SITE_BASE" >> "$GITHUB_OUTPUT"
+          else
+            slug=$(echo "$GITHUB_REF_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9._-]+/-/g')
+            echo "dir=preview/$slug" >> "$GITHUB_OUTPUT"
+            echo "base=$SITE_BASE/preview/$slug" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.target.outputs.base }}
+
+      - name: Publish
+        run: scripts/publish-pages.sh "${{ steps.target.outputs.dir }}" dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show URL
+        run: echo "https://${GITHUB_REPOSITORY_OWNER}.github.io${{ steps.target.outputs.base }}/" >> "$GITHUB_STEP_SUMMARY"
+
+  cleanup:
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+
+      - name: Remove preview
+        run: |
+          slug=$(echo "${{ github.event.ref }}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9._-]+/-/g')
+          scripts/publish-pages.sh "preview/$slug"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
