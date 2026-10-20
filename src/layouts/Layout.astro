@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Szoftverfejlesztési módszertanok, 2026' } = Astro.props;
+---
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <style is:global>
+      :root {
+        --bg: #fafaf8;
+        --fg: #1d1d1f;
+        --muted: #5f5f66;
+        --accent: #2b59c3;
+        --card: #ffffff;
+        --border: #e2e2e6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141416;
+          --fg: #ececf0;
+          --muted: #a0a0aa;
+          --accent: #7ea2ff;
+          --card: #1d1d21;
+          --border: #2e2e34;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+      h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 0.5rem; }
+      h2 { font-size: 1.3rem; margin: 2.5rem 0 0.75rem; }
+      p.lead { color: var(--muted); margin-top: 0; }
+      a { color: var(--accent); }
+      section.card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0;
+      }
+      ul { padding-left: 1.25rem; }
+      li { margin: 0.4rem 0; }
+      footer { color: var(--muted); font-size: 0.9rem; margin-top: 3rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
