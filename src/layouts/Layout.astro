@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 interface Props {
   title: string;
@@ -7,7 +7,9 @@ interface Props {
 }
 const { title, description } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const oldalak = (await getCollection('oldalak')).sort((a, b) => a.data.order - b.data.order);
+const pages = (await getCollection('pages')).sort((a, b) => a.data.order - b.data.order);
+const home = await getEntry('pages', 'index');
+const siteTitle = home?.data.title ?? '';
 const linkOf = (id: string) => (id === 'index' ? `${base}/` : `${base}/${id}/`);
 const current = Astro.url.pathname.replace(/\/?$/, '/');
 ---
@@ -17,7 +19,7 @@ const current = Astro.url.pathname.replace(/\/?$/, '/');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description ?? title} />
-    <title>{title === 'Szoftverfejlesztési módszertanok' ? title : `${title} · Szoftverfejlesztési módszertanok`}</title>
+    <title>{title === siteTitle ? title : `${title} · ${siteTitle}`}</title>
     <style is:global>
       :root {
         --bg: #fafaf8;
@@ -115,12 +117,12 @@ const current = Astro.url.pathname.replace(/\/?$/, '/');
   <body>
     <header class="site">
       <div class="inner">
-        <a class="brand" href={`${base}/`}>Szoftverfejlesztési módszertanok</a>
-        {oldalak.length > 1 && (
+        <a class="brand" href={`${base}/`}>{siteTitle}</a>
+        {pages.length > 1 && (
           <nav>
-            {oldalak.map((o) => (
-              <a href={linkOf(o.id)} aria-current={linkOf(o.id) === current ? 'page' : undefined}>
-                {o.id === 'index' ? 'Főoldal' : o.data.title}
+            {pages.map((page) => (
+              <a href={linkOf(page.id)} aria-current={linkOf(page.id) === current ? 'page' : undefined}>
+                {page.data.navLabel ?? page.data.title}
               </a>
             ))}
           </nav>
@@ -134,6 +136,6 @@ const current = Astro.url.pathname.replace(/\/?$/, '/');
         <slot />
       </article>
     </main>
-    <footer>Szoftverfejlesztési módszertanok · 2026</footer>
+    {home?.data.footer && <footer>{home.data.footer}</footer>}
   </body>
 </html>

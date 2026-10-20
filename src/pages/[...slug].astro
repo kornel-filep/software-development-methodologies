@@ -3,16 +3,16 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const oldalak = await getCollection('oldalak');
-  return oldalak.map((oldal) => ({
-    params: { slug: oldal.id === 'index' ? undefined : oldal.id },
-    props: { oldal },
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { slug: page.id === 'index' ? undefined : page.id },
+    props: { page },
   }));
 }
 
-const { oldal } = Astro.props;
-const { Content } = await render(oldal);
+const { page } = Astro.props;
+const { Content } = await render(page);
 ---
-<Layout title={oldal.data.title} description={oldal.data.description}>
+<Layout title={page.data.title} description={page.data.description}>
   <Content />
 </Layout>

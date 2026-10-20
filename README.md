@@ -4,7 +4,7 @@ A tárgy tananyag-weboldala: https://kornel-filep.github.io/software-development
 
 ## Szerkesztés
 
-Az oldalak tartalma a `src/content/oldalak/` mappában található Markdown fájlokban van.
+Az oldalak tartalma a `src/content/pages/` mappában található Markdown fájlokban van.
 
 - A főoldal az `index.md`.
 - Új oldalhoz hozz létre egy új `.md` fájlt az alábbi fejléccel; automatikusan megjelenik a menüben.

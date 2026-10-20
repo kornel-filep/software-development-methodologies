@@ -2,6 +2,8 @@
 title: Szoftverfejlesztési módszertanok
 description: 2026-os félév · Féléves csapatfeladat
 order: 0
+navLabel: Főoldal
+footer: Szoftverfejlesztési módszertanok · 2026
 ---
 
 ## Féléves csapatfeladat
