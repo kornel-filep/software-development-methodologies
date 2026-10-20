@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const oldalak = await getCollection('oldalak');
+  return oldalak.map((oldal) => ({
+    params: { slug: oldal.id === 'index' ? undefined : oldal.id },
+    props: { oldal },
+  }));
+}
+
+const { oldal } = Astro.props;
+const { Content } = await render(oldal);
+---
+<Layout title={oldal.data.title} description={oldal.data.description}>
+  <Content />
+</Layout>

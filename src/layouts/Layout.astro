@@ -1,17 +1,23 @@
 ---
+import { getCollection } from 'astro:content';
+
 interface Props {
   title: string;
   description?: string;
 }
-const { title, description = 'Szoftverfejlesztési módszertanok, 2026' } = Astro.props;
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const oldalak = (await getCollection('oldalak')).sort((a, b) => a.data.order - b.data.order);
+const linkOf = (id: string) => (id === 'index' ? `${base}/` : `${base}/${id}/`);
+const current = Astro.url.pathname.replace(/\/?$/, '/');
 ---
 <!doctype html>
 <html lang="hu">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <meta name="description" content={description ?? title} />
+    <title>{title === 'Szoftverfejlesztési módszertanok' ? title : `${title} · Szoftverfejlesztési módszertanok`}</title>
     <style is:global>
       :root {
         --bg: #fafaf8;
@@ -20,6 +26,7 @@ const { title, description = 'Szoftverfejlesztési módszertanok, 2026' } = Astr
         --accent: #2b59c3;
         --card: #ffffff;
         --border: #e2e2e6;
+        --code-bg: #f0f0f3;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -29,6 +36,7 @@ const { title, description = 'Szoftverfejlesztési módszertanok, 2026' } = Astr
           --accent: #7ea2ff;
           --card: #1d1d21;
           --border: #2e2e34;
+          --code-bg: #26262c;
         }
       }
       * { box-sizing: border-box; }
@@ -37,28 +45,95 @@ const { title, description = 'Szoftverfejlesztési módszertanok, 2026' } = Astr
         background: var(--bg);
         color: var(--fg);
         font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        line-height: 1.6;
+        line-height: 1.65;
       }
-      main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
-      h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 0.5rem; }
-      h2 { font-size: 1.3rem; margin: 2.5rem 0 0.75rem; }
-      p.lead { color: var(--muted); margin-top: 0; }
-      a { color: var(--accent); }
-      section.card {
+      header.site {
+        border-bottom: 1px solid var(--border);
         background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 1rem 1.25rem;
-        margin: 1rem 0;
       }
-      ul { padding-left: 1.25rem; }
-      li { margin: 0.4rem 0; }
-      footer { color: var(--muted); font-size: 0.9rem; margin-top: 3rem; }
+      header.site .inner, main, footer {
+        max-width: 760px;
+        margin: 0 auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      header.site .inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.25rem;
+        align-items: baseline;
+        padding-top: 0.9rem;
+        padding-bottom: 0.9rem;
+      }
+      header.site .brand { font-weight: 650; color: var(--fg); text-decoration: none; margin-right: auto; }
+      header.site nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+      header.site nav a { color: var(--muted); text-decoration: none; }
+      header.site nav a[aria-current='page'] { color: var(--accent); font-weight: 600; }
+      main { padding-top: 2.5rem; padding-bottom: 3rem; }
+      h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 0.4rem; }
+      p.lead { color: var(--muted); margin: 0 0 1.5rem; }
+
+      /* Markdown content */
+      .prose h2 {
+        font-size: 1.35rem;
+        margin: 2.5rem 0 0.75rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .prose h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
+      .prose p, .prose ul, .prose ol, .prose blockquote, .prose pre, .prose table { margin: 0 0 1rem; }
+      .prose ul, .prose ol { padding-left: 1.4rem; }
+      .prose li { margin: 0.4rem 0; }
+      .prose li::marker { color: var(--accent); }
+      .prose a { color: var(--accent); }
+      .prose strong { font-weight: 650; }
+      .prose blockquote {
+        border-left: 4px solid var(--accent);
+        background: var(--card);
+        padding: 0.6rem 1rem;
+        border-radius: 0 8px 8px 0;
+        color: var(--muted);
+      }
+      .prose blockquote p:last-child { margin-bottom: 0; }
+      .prose code {
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+        font-size: 0.9em;
+        background: var(--code-bg);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      .prose pre { padding: 1rem; border-radius: 8px; overflow-x: auto; }
+      .prose pre code { background: none; padding: 0; }
+      .prose table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
+      .prose th, .prose td { border: 1px solid var(--border); padding: 0.45rem 0.7rem; text-align: left; }
+      .prose th { background: var(--card); }
+      .prose img { max-width: 100%; height: auto; border-radius: 8px; }
+      .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+      footer { color: var(--muted); font-size: 0.9rem; padding-bottom: 2rem; }
     </style>
   </head>
   <body>
+    <header class="site">
+      <div class="inner">
+        <a class="brand" href={`${base}/`}>Szoftverfejlesztési módszertanok</a>
+        {oldalak.length > 1 && (
+          <nav>
+            {oldalak.map((o) => (
+              <a href={linkOf(o.id)} aria-current={linkOf(o.id) === current ? 'page' : undefined}>
+                {o.id === 'index' ? 'Főoldal' : o.data.title}
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
+    </header>
     <main>
-      <slot />
+      <h1>{title}</h1>
+      {description && <p class="lead">{description}</p>}
+      <article class="prose">
+        <slot />
+      </article>
     </main>
+    <footer>Szoftverfejlesztési módszertanok · 2026</footer>
   </body>
 </html>

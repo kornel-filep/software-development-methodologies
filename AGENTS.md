@@ -7,8 +7,13 @@ Statikus [Astro](https://astro.build) oldal, amely GitHub Actions segítségéve
 https://kornel-filep.github.io/software-development-methodologies/
 
 - `reqs.txt` – a féléves csapatfeladat követelményeinek forrásszövege.
-- `src/pages/index.astro` – a főoldal; a `reqs.txt` tartalmát jeleníti meg.
-- `src/layouts/Layout.astro` – közös oldalkeret és stílusok.
+- `src/content/oldalak/*.md` – **az oldalak tartalma Markdownban.** Itt kell szerkeszteni.
+  - `index.md` a főoldal (a `reqs.txt` tartalma), minden további `valami.md` a `/valami/` címen jelenik meg,
+    és automatikusan bekerül a fejléc menüjébe.
+  - Frontmatter: `title` (kötelező), `description` (opcionális alcím), `order` (menüsorrend, kisebb = előrébb).
+- `src/content.config.ts` – a tartalomgyűjtemény sémája.
+- `src/pages/[...slug].astro` – minden Markdown fájlból oldalt generál.
+- `src/layouts/Layout.astro` – közös oldalkeret, menü és a Markdown elemek stílusai (`.prose`).
 - `.github/workflows/deploy.yml` – build és telepítés a `main` ágra pusholáskor.
 
 ## Nyelvi szabály (kötelező)
@@ -25,6 +30,8 @@ Kód, fájlnevek, commit üzenetek és ez a technikai dokumentáció angolul vag
 
 - Helyi futtatás: `npm install`, majd `npm run dev`.
 - Build ellenőrzése: `npm run build` (a kimenet a `dist/` mappába kerül).
-- Ha a `reqs.txt` változik, frissítsd a `src/pages/index.astro` tartalmát is, hogy egyezzenek.
+- Tartalmi változtatáshoz csak Markdownt szerkessz; ne írj tartalmat `.astro` fájlokba.
+- Ha a `reqs.txt` változik, frissítsd a `src/content/oldalak/index.md` tartalmát is, hogy egyezzenek.
+- Új Markdown elem (pl. táblázat, idézet) stílusát a `Layout.astro` `.prose` szabályai közé vedd fel.
 - Az oldal a `/software-development-methodologies` alútvonalon fut (`base` az `astro.config.mjs`-ben),
   ezért belső hivatkozásoknál használd az `import.meta.env.BASE_URL` értéket.
